@@ -1,10 +1,10 @@
 const { User, Answers } = require("../../db")
 
 module.exports = async (req, res) => {
-  const { completeName, email, birthdate, country, terms, userId } = req.body;
+  const { full_name, email, birth_date, country_of_origin, terms_and_conditions, userId } = req.body;
 
   try {
-    if (!completeName || !email || !birthdate || !country || !terms || !userId) {
+    if (!full_name || !email || !birth_date || !country_of_origin || !terms_and_conditions || !userId) {
       throw Error("Data missing.")
     }
 
@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
     }
 
     const newAnswers = {
-      completeName, email, birthdate, country, terms, userId
+      full_name, email, birth_date, country_of_origin, terms_and_conditions, userId
     }
 
     const newAnswersDB = await Answers.create(newAnswers)

@@ -1,20 +1,22 @@
-const { Answers } = require("../../db")
+const { Answers, User } = require("../../db")
 
 module.exports = async (req, res) => {
   const { userId } = req.query
 
   try {
-    if (!userId) {
-      throw Error("Invalid ID.")
+    const userDB = await User.findOne({ where: { id: userId } })
+    if (!userDB) {
+      throw Error("Non registered name.")
     }
-    const answersDB = await Answers.findOne({ where: { userId: userId } })
-    
+
+    const answersDB = await Answers.findOne({ where: { userId: userDB.id } })
+
     if (!answersDB) {
-      throw Error("No answers.")
+      return res.status(200).json("No answers.")
     }
-    
-    return res.status(200).json({answersDB})
+
+    return res.status(200).json({ answersDB })
   } catch (error) {
-    return res.status(400).json({error: error.message})
+    return res.status(400).json({ error: error.message })
   }
 }

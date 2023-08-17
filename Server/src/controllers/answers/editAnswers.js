@@ -1,18 +1,18 @@
 const { Answers } = require("../../db")
 
 module.exports = async (req, res) => {
-  const { completeName, email, birthdate, country, terms, userId } = req.body
+  const { full_name, email, birth_date, country_of_origin, terms_and_conditions, userId } = req.body
 
   try {
     const answersDB = await Answers.findOne({ where: { userId: userId } })
 
     await Answers.update(
       {
-        completeName: completeName ? completeName : answersDB.completeName,
+        full_name: full_name ? full_name : answersDB.full_name,
         email: email ? email : answersDB.email,
-        birthdate: birthdate ? birthdate : answersDB.birthdate,
-        country: country ? country : answersDB.country,
-        terms: terms ? terms : answersDB.terms,
+        birth_date: birth_date ? birth_date : answersDB.birth_date,
+        country_of_origin: country_of_origin ? country_of_origin : answersDB.country_of_origin,
+        terms_and_conditions: terms_and_conditions ? terms_and_conditions : answersDB.terms_and_conditions,
       },
       {
         where: { userId: userId }

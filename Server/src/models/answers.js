@@ -7,7 +7,7 @@ module.exports = (database) => {
       autoIncrement: true,
       primaryKey: true
     },
-    completeName: {
+    full_name: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -15,15 +15,15 @@ module.exports = (database) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    birthdate: {
+    birth_date: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    country: {
+    country_of_origin: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    terms: {
+    terms_and_conditions: {
       type: DataTypes.BOOLEAN,
       allowNull: false
     },
