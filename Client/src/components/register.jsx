@@ -40,7 +40,7 @@ const Register = () => {
 
 	return (
 		<main className="h-screen w-screen bg-slate-800 flex flex-col justify-center items-center">
-			{alert && <Alert alertTitle={"Error!"} alertBody={alert} setAlert={setAlert} />}
+			{alert && <Alert alertBody={alert} setAlert={setAlert} />}
 			<section className="h-1/2 text-white/90 font-serif text-5xl text-center flex flex-col justify-center">
 				<span className="mt-10">I know, everybody hates this,</span>
 				<span>but it will take only a few seconds</span>
