@@ -19,7 +19,7 @@ const validationEdit = (userAnswers) => {
     errors.full_name = "Invalid characters in Nombre completo."
   }
 
-  if (userAnswers.full_name.length < 3) {
+  if (userAnswers.full_name.length < 3 && userAnswers.full_name.length > 0) {
     errors.full_name = "Nombre completo must have more than 3 characters."
   }
 
