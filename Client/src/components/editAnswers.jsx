@@ -118,16 +118,18 @@ const EditAnswers = () => {
 						);
 					} else if (item.type === "checkbox") {
 						return (
-							<label htmlFor={item.name} key={index}>
+							<label htmlFor={item.name} key={index} className="flex justify-center">
 								{item.label}
-								<input type={item.type} name={item.name} required={item.required} onChange={handleChange} />
+								<input type={item.type} name={item.name} required={item.required} onChange={handleChange} className="ml-4 w-4 hover:cursor-pointer"/>
 							</label>
 						);
 					} else {
 						return (
-							<button type={item.type} key={index} onClick={handleSubmit}>
-								{item.label}
-							</button>
+							<div className="flex justify-center" key={index}>
+								<button type={item.type} onClick={handleSubmit} className="w-fit hover:cursor-pointer hover:scale-110 hover:underline transition-all">
+									{item.label}
+								</button>
+							</div>
 						);
 					}
 				})}
