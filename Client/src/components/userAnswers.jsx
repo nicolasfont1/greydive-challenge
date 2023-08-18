@@ -29,10 +29,10 @@ const UserAnswers = () => {
 
 	return (
 		<main className="h-screen w-screen bg-slate-800 flex flex-col justify-center items-center">
-			<section className="h-2/4 flex flex-col justify-center items-center">
+			<section className="h-[45%] flex flex-col justify-center items-center">
 				<h1 className="text-7xl text-white/90 font-serif">Stealed information:</h1>
 			</section>
-			<section className="h-2/4 font-serif text-white/90 text-2xl text-center flex flex-col justify-start gap-3">
+			<section className="h-[55%] font-serif text-white/90 text-2xl text-center flex flex-col justify-start gap-3">
 				<p>
 					Your complete name is <span className="text-gray-400">{userAnswers?.full_name}</span>,
 				</p>
