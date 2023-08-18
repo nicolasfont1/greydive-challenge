@@ -9,37 +9,37 @@ const validation = (userAnswers) => {
 
   // --------------------------------- FULL_NAME INPUT ------------------------------------
   if (onlySpaces.test(userAnswers.full_name)) {
-    errors.full_name = "This field can't be empty."
+    errors.full_name = "Nombre completo can't be empty."
   }
 
   if (firstCharacterIsSpace.test(userAnswers.full_name)) {
-    errors.full_name = "The first character can't be a empty space."
+    errors.full_name = "Nombre completo first character can't be a empty space."
   }
 
   if (twoOrMoreSpaces.test(userAnswers.full_name)) {
-    errors.full_name = "This field can't contain two or more consecutive spaces."
+    errors.full_name = "Nombre completo can't contain two or more consecutive spaces."
   }
 
   if (rareCharacters.test(userAnswers.full_name)) {
-    errors.full_name = "Invalid characters."
+    errors.full_name = "Invalid characters in Nombre completo."
   }
 
   if (userAnswers.full_name.length < 3) {
-    errors.full_name = "The name must have more than 3 characters."
+    errors.full_name = "Nombre completo must have more than 3 characters."
   }
 
 
   // --------------------------------- EMAIL INPUT ------------------------------------
   if (onlySpaces.test(userAnswers.email)) {
-    errors.email = "This field can't be empty."
+    errors.email = "Email can't be empty."
   }
 
   if (firstCharacterIsSpace.test(userAnswers.email)) {
-    errors.email = "The first character can't be a empty space."
+    errors.email = "Email first character can't be a empty space."
   }
 
   if (twoOrMoreSpaces.test(userAnswers.email)) {
-    errors.email = "This field can't contain two or more consecutive spaces."
+    errors.email = "Email can't contain two or more consecutive spaces."
   }
 
   if (!regexEmail.test(userAnswers.email)) {
@@ -49,13 +49,13 @@ const validation = (userAnswers) => {
 
   // ---------------------------------- BIRTH_DATE INPUT ------------------------------------
   if (userAnswers.birth_date == "") {
-    errors.birth_date = "Change the default value."
+    errors.birth_date = "Change the default Fecha de nacimiento value."
   }
 
 
   // ---------------------------------- COUNTRY_OF_ORIGIN INPUT ------------------------------------
   if (userAnswers.country_of_origin == "") {
-    errors.country_of_origin = "Change the default value."
+    errors.country_of_origin = "Change the default País de origen value."
   }
 
 
