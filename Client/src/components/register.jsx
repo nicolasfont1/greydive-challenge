@@ -25,6 +25,7 @@ const Register = () => {
 				navigate("/")
 			}, 3000);
 		} catch (error) {
+			if(error.message === "Network Error") return setErrorCatched("Connection lost.")
 			if(error.response.data) return setErrorCatched(error.response.data)
 			console.log(error.response);
 		}
