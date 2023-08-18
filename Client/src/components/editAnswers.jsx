@@ -83,7 +83,7 @@ const EditAnswers = () => {
 
 	return (
 		<main className="h-screen w-screen bg-slate-800 flex flex-col justify-center items-center">
-			{alert && <Alert alertTitle={"Error!"} alertBody={alert} setAlert={setAlert} />}
+			{alert && <Alert alertBody={alert} setAlert={setAlert} />}
       <section className="h-[35%] flex flex-col justify-center text-white/90 text-center font-serif gap-1">
         <p className="text-4xl">The information that we currently have is:</p>
         <p className="text-xl">Complete name: <span className="text-gray-400">{ userAnswersCopy?.full_name }</span></p>
