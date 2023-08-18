@@ -26,6 +26,9 @@ const Form = () => {
 		event.preventDefault();
 		setAlert(null);
 		try {
+			if (userAnswers.terms_and_conditions === false) {
+				return setAlert("Can't save without accept terms.")
+			}
 			const response = await dispatch(postAnswers(userAnswers));
 			if (response === "Data missing.") {
 				return setAlert(response)

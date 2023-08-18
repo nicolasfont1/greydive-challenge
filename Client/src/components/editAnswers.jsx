@@ -2,7 +2,7 @@ import axios from "axios"
 import { useNavigate, useParams } from "react-router-dom";
 import inputsJSON from "../utils/greydive.json";
 import { useEffect, useState } from "react";
-import { getAnswers, editAnswers } from "../redux/actions";
+import { editAnswers } from "../redux/actions";
 import { useDispatch } from "react-redux";
 import { Alert } from "../components/alert";
 
