@@ -50,7 +50,7 @@ const Login = () => {
 
 	return (
 		<main className="h-screen w-screen bg-slate-800 flex flex-col justify-center items-center">
-			{alert && <Alert alertTitle={"Error!"} alertBody={alert} setAlert={setAlert} />}
+			{alert && <Alert alertBody={alert} setAlert={setAlert} />}
 			<section className="h-[60%] flex flex-col justify-center text-center">
 				<h1 className="text-4xl text-white/90 font-serif">THE</h1>
 				<h1 className="text-9xl text-white/90 font-serif font-extrabold">GREYDIVE</h1>
