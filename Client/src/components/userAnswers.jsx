@@ -17,7 +17,7 @@ const UserAnswers = () => {
 					let country = data.answersDB?.country_of_origin;
 					let [firstLetter, ...completeWord] = country;
 					let formattedCountry = firstLetter.toUpperCase() + completeWord.join("");
-					data.answersDB.country_of_origin = formattedCountry
+					data.answersDB.country_of_origin = formattedCountry;
 					setUserAnswers(data.answersDB);
 				}
 			});
@@ -30,9 +30,9 @@ const UserAnswers = () => {
 	return (
 		<main className="h-screen w-screen bg-slate-800 flex flex-col justify-center items-center">
 			<section className="h-2/4 flex flex-col justify-center items-center">
-				<h1 className="text-6xl text-white/90 font-serif">Stealed information:</h1>
+				<h1 className="text-7xl text-white/90 font-serif">Stealed information:</h1>
 			</section>
-			<section className="h-2/4 font-serif text-white/90 text-xl text-center flex flex-col justify-start gap-3">
+			<section className="h-2/4 font-serif text-white/90 text-2xl text-center flex flex-col justify-start gap-3">
 				<p>
 					Your complete name is <span className="text-gray-400">{userAnswers?.full_name}</span>,
 				</p>
@@ -45,12 +45,17 @@ const UserAnswers = () => {
 				<p>
 					in the beatiful country of <span className="text-gray-400">{userAnswers.country_of_origin}</span>.
 				</p>
-				<h1 className="text-sm text-white/90 font-serif mt-14">
+				<h1 className="text-base text-white/90 font-serif mt-14">
 					Something is wrong? Help us to improve our database just{" "}
 					<a href={`/answers/edit/${id}`} className="text-sm text-white/90 font-serif underline">
 						clicking here!
 					</a>
 				</h1>
+				<div className="flex justify-center">
+					<a href="/" className="hover:scale-110 hover:underline transition-all text-sm mt-6">
+						Log out
+					</a>
+				</div>
 			</section>
 		</main>
 	);
