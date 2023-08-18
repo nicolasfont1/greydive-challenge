@@ -1,1 +1,7 @@
 This is the Greydive Challenge repository!
+
+El Greydive Challenge es un desafío planteado por el staff de Henry, el cual consiste en generar una interfaz de encuesta a través de la lectura de un archivo JSON, almacenar las respuestas en una base de datos y brindarle al usuario la posibilidad de acceder a las mismas y editarlas en caso de que lo desee.
+
+Para poder guardar las respuestas de cada usuario definí dos modelos, uno de usuario y otro de respuestas. El modelo de usuario simplemente recibe un nombre con la condición de que sea único, y posteriormente genera una ID autoincremental única, no consideré que fuese necesario utilizar UUID's para un proyecto tan pequeño. Una vez registrado vas a poder logearte, y en caso de que no tengas respuestas almacenadas para tu username, serás redirigido al formulario generado gracias a la lectura del JSON. Antes de enviar el formulario a la base de datos, cada input pasa por una función de validación para evitar almacenar información basura en la misma. Una vez almacenadas las respuestas, el usuario es redirigido a una vista donde puede ver lo que ha respondido, y en caso de querer editarlas puede presionar un botón que redirecciona nuevamente pero a una vista de edición.
+
+Las respuestas están relacionadas a cada usuario mediante una relacion de muchos a uno, es decir, un conjunto de respuestas pueden pertenecer solo a un usuario. Esto se logra utilizando como foreign key la ID única de cada user.
