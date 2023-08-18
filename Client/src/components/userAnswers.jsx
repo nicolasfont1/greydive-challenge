@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const UserAnswers = () => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const { id } = useParams();
 
 	const [userAnswers, setUserAnswers] = useState({});
@@ -13,6 +14,9 @@ const UserAnswers = () => {
 	useEffect(() => {
 		try {
 			axios.get(`http://localhost:3001/answers?userId=${id}`).then(({ data }) => {
+				if (data === "No answers.") {
+					return navigate(`/greydive/${id}`)
+				}
 				if (data.answersDB?.full_name) {
 					let country = data.answersDB?.country_of_origin;
 					let [firstLetter, ...completeWord] = country;

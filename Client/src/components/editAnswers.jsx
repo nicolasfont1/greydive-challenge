@@ -101,6 +101,9 @@ const EditAnswers = () => {
 	useEffect(() => {
 		try {
 			axios.get(`http://localhost:3001/answers?userId=${id}`).then(({ data }) => {
+				if (data === "No answers.") {
+					return navigate(`/greydive/${id}`)
+				}
 				if (data.answersDB?.full_name) {
 					setUserAnswersEdit(data.answersDB);
 					let country = data.answersDB?.country_of_origin;
