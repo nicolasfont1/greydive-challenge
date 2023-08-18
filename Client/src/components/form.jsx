@@ -20,23 +20,23 @@ const Form = () => {
 		userId: id,
 	});
 
-	const [errorCatched, setErrorCatched] = useState(null);
+	const [alert, setAlert] = useState(null);
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		setErrorCatched(null);
+		setAlert(null);
 		try {
 			const response = await dispatch(postAnswers(userAnswers));
 			if (response === "Data missing.") {
-				return setErrorCatched(response)
+				return setAlert(response)
 			}
-			setErrorCatched(response)
+			setAlert(response)
 			setTimeout(() => {
 				navigate(`/answers/${id}`);
 			}, 3000);
 		} catch (error) {
-			if (error.response.data) return setErrorCatched(error.response.data.error)
-			if(error.message === "Network Error") return setErrorCatched("Connection lost.")
+			if (error.response.data) return setAlert(error.response.data.error)
+			if(error.message === "Network Error") return setAlert("Connection lost.")
 		}
 	};
 
@@ -55,7 +55,7 @@ const Form = () => {
 
 	return (
 		<main className="h-screen w-screen bg-slate-800 flex flex-col justify-center items-center text-white">
-			{errorCatched && <Alert alertTitle={"Error!"} alertBody={errorCatched} setErrorCatched={setErrorCatched} />}
+			{alert && <Alert alertTitle={"Error!"} alertBody={alert} setAlert={setAlert} />}
 			<section className="h-[35%] flex justify-center items-center">
 				<span className="text-6xl font-serif">It's time for some spanglish!</span>
 			</section>

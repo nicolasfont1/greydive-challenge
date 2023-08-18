@@ -1,6 +1,6 @@
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 
-export const Alert = ({ alertBody, setErrorCatched }) => {
+export const Alert = ({ alertBody, setAlert }) => {
 	return (
 		<div
 			className="w-1/4 bg-slate-100 border border-slate-400 text-slate-700 pr-4 rounded absolute top-4 expandable flex flex-row justify-between items-center z-50"
@@ -11,7 +11,7 @@ export const Alert = ({ alertBody, setErrorCatched }) => {
 				</strong>
 			</div>
 			<span className="block font-serif">{alertBody}</span>
-			<span onClick={() => setErrorCatched(null)}>
+			<span onClick={() => setAlert(null)}>
 				<svg
 					className="fill-current h-6 w-6 ml-1 text-slate-500"
 					role="button"

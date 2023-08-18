@@ -12,7 +12,7 @@ const EditAnswers = () => {
   const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const [errorCatched, setErrorCatched] = useState(null);
+	const [alert, setAlert] = useState(null);
 
   const [userAnswers, setUserAnswers] = useState({
 		full_name: "",
@@ -34,15 +34,15 @@ const EditAnswers = () => {
 
   const handleSubmit = async (event) => {
 		event.preventDefault();
-		setErrorCatched(null);
+		setAlert(null);
 		try {
       const response = await dispatch(editAnswers(userAnswers));
-      setErrorCatched(response);
+      setAlert(response);
 			setTimeout(() => {
 				navigate(`/answers/${id}`);
 			}, 3000);
 		} catch (error) {
-			if(error.message === "Network Error") return setErrorCatched("Connection lost.")
+			if(error.message === "Network Error") return setAlert("Connection lost.")
 			return error;
 		}
 	};
@@ -80,7 +80,7 @@ const EditAnswers = () => {
 
 	return (
 		<main className="h-screen w-screen bg-slate-800 flex flex-col justify-center items-center">
-			{errorCatched && <Alert alertTitle={"Error!"} alertBody={errorCatched} setErrorCatched={setErrorCatched} />}
+			{alert && <Alert alertTitle={"Error!"} alertBody={alert} setAlert={setAlert} />}
       <section className="h-[35%] flex flex-col justify-center text-white/90 text-center font-serif gap-1">
         <p className="text-4xl">The information that we currently have is:</p>
         <p className="text-xl">Complete name: <span className="text-gray-400">{ userAnswersCopy?.full_name }</span></p>

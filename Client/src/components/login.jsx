@@ -10,24 +10,24 @@ const Login = () => {
 		name: "",
 	});
 
-	const [errorCatched, setErrorCatched] = useState(null);
+	const [alert, setAlert] = useState(null);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		setErrorCatched(null);
+		setAlert(null);
 		try {
 			if (!userData.name) {
-				return setErrorCatched("Better try writing something!")
+				return setAlert("Better try writing something!")
 			}
 
 			const response = await dispatch(getUser(userData.name))
 
 			if (response === "Non registered name.") {
 				setUserData({name: ""})
-				return setErrorCatched(response)
+				return setAlert(response)
 			}
 
 			const answers = await dispatch(getAnswers(response))
@@ -36,7 +36,7 @@ const Login = () => {
 			}
 			navigate(`/answers/${response}`)
 		} catch (error) {
-			if(error.message === "Network Error") return setErrorCatched("Connection lost.")
+			if(error.message === "Network Error") return setAlert("Connection lost.")
 			return console.log(error.message)
 		}
 	};
@@ -50,7 +50,7 @@ const Login = () => {
 
 	return (
 		<main className="h-screen w-screen bg-slate-800 flex flex-col justify-center items-center">
-			{errorCatched && <Alert alertTitle={"Error!"} alertBody={errorCatched} setErrorCatched={setErrorCatched} />}
+			{alert && <Alert alertTitle={"Error!"} alertBody={alert} setAlert={setAlert} />}
 			<section className="h-[60%] flex flex-col justify-center text-center">
 				<h1 className="text-4xl text-white/90 font-serif">THE</h1>
 				<h1 className="text-9xl text-white/90 font-serif font-extrabold">GREYDIVE</h1>

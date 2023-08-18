@@ -10,23 +10,23 @@ const Register = () => {
 		name: ""
 	});
 
-	const [errorCatched, setErrorCatched] = useState(null);
+	const [alert, setAlert] = useState(null);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		setErrorCatched(null);
+		setAlert(null);
 		try {
 			const response = await dispatch(registerUser(userData))
-			setErrorCatched("User successfully created!");
+			setAlert("User successfully created!");
 			setTimeout(() => {
 				navigate("/")
 			}, 3000);
 		} catch (error) {
-			if(error.message === "Network Error") return setErrorCatched("Connection lost.")
-			if(error.response.data) return setErrorCatched(error.response.data)
+			if(error.message === "Network Error") return setAlert("Connection lost.")
+			if(error.response.data) return setAlert(error.response.data)
 			console.log(error.response);
 		}
 	};
@@ -40,7 +40,7 @@ const Register = () => {
 
 	return (
 		<main className="h-screen w-screen bg-slate-800 flex flex-col justify-center items-center">
-			{errorCatched && <Alert alertTitle={"Error!"} alertBody={errorCatched} setErrorCatched={setErrorCatched} />}
+			{alert && <Alert alertTitle={"Error!"} alertBody={alert} setAlert={setAlert} />}
 			<section className="h-1/2 text-white/90 font-serif text-5xl text-center flex flex-col justify-center">
 				<span className="mt-10">I know, everybody hates this,</span>
 				<span>but it will take only a few seconds</span>
