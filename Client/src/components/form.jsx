@@ -35,7 +35,8 @@ const Form = () => {
 				navigate(`/answers/${id}`);
 			}, 3000);
 		} catch (error) {
-			if(error.response.data) return setErrorCatched(error.response.data.error)
+			if (error.response.data) return setErrorCatched(error.response.data.error)
+			if(error.message === "Network Error") return setErrorCatched("Connection lost.")
 		}
 	};
 
