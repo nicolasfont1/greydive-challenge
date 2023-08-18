@@ -4,12 +4,15 @@ import inputsJSON from "../utils/greydive.json";
 import { useEffect, useState } from "react";
 import { getAnswers, editAnswers } from "../redux/actions";
 import { useDispatch } from "react-redux";
+import { Alert } from "../components/alert";
 
 const EditAnswers = () => {
   const { id } = useParams()
 
   const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	const [errorCatched, setErrorCatched] = useState(null);
 
   const [userAnswers, setUserAnswers] = useState({
 		full_name: "",
@@ -31,10 +34,13 @@ const EditAnswers = () => {
 
   const handleSubmit = async (event) => {
 		event.preventDefault();
+		setErrorCatched(null);
 		try {
       const response = await dispatch(editAnswers(userAnswers));
-      console.log(response);
-      navigate(`/answers/${id}`);
+      setErrorCatched(response);
+			setTimeout(() => {
+				navigate(`/answers/${id}`);
+			}, 3000);
 		} catch (error) {
 			if(error.message === "Network Error") return setErrorCatched("Connection lost.")
 			return error;
@@ -58,7 +64,11 @@ const EditAnswers = () => {
 		try {
 			axios.get(`http://localhost:3001/answers?userId=${id}`).then(({ data }) => {
 				if (data.answersDB?.full_name) {
-          setUserAnswers(data.answersDB)
+					setUserAnswers(data.answersDB);
+					let country = data.answersDB?.country_of_origin;
+					let [firstLetter, ...completeWord] = country;
+					let formattedCountry = firstLetter.toUpperCase() + completeWord.join("");
+					data.answersDB.country_of_origin = formattedCountry
           setUserAnswersCopy(data.answersDB)
 				}
 			});
@@ -70,14 +80,16 @@ const EditAnswers = () => {
 
 	return (
 		<main className="h-screen w-screen bg-slate-800 flex flex-col justify-center items-center">
-      <section className="flex flex-col text-white/90 text-center text-xl font-serif">
-        <p>The information that we currently have is:</p>
-        <p className="text-base">Complete name: { userAnswersCopy?.full_name }</p>
-        <p className="text-base">Email: { userAnswersCopy?.email }</p>
-        <p className="text-base">Birthdate: { userAnswersCopy?.birth_date }</p>
-        <p className="text-base">Country: {userAnswersCopy.country_of_origin}</p>
-      </section>
-      <form onSubmit={handleSubmit} className="h-3/4 flex flex-col justify-around text-white/90 font-serif">
+			{errorCatched && <Alert alertTitle={"Error!"} alertBody={errorCatched} setErrorCatched={setErrorCatched} />}
+      <section className="h-[35%] flex flex-col justify-center text-white/90 text-center font-serif gap-1">
+        <p className="text-4xl">The information that we currently have is:</p>
+        <p className="text-xl">Complete name: <span className="text-gray-400">{ userAnswersCopy?.full_name }</span></p>
+        <p className="text-xl">Email: <span className="text-gray-400">{ userAnswersCopy?.email }</span></p>
+        <p className="text-xl">Birthdate: <span className="text-gray-400">{ userAnswersCopy?.birth_date }</span></p>
+				<p className="text-xl">Country: <span className="text-gray-400">{userAnswersCopy.country_of_origin}</span></p>
+			</section>
+			<p className="text-sm font text-white/90">(Empty or untouched fields wont be affected)</p>
+      <form onSubmit={handleSubmit} className="h-[65%] flex flex-col justify-center gap-4 text-white/90 font-serif">
 				{inputsJSON.items.map((item, index) => {
 					if (item.type === "text" || item.type === "email" || item.type === "date") {
 						return (
@@ -90,6 +102,8 @@ const EditAnswers = () => {
 									onChange={handleChange}
 									autoComplete="off"
 									className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+									placeholder={item.type === "text" ? userAnswersCopy.full_name : userAnswersCopy.email}
+									defaultValue={item.type === "text" ? userAnswersCopy.full_name : item.type === "email" ? userAnswersCopy.email : userAnswersCopy.birth_date}
 								/>
 							</label>
 						);
@@ -102,7 +116,7 @@ const EditAnswers = () => {
 									required={item.required}
 									key={index}
 									className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-									defaultValue="Choose"
+									defaultValue={userAnswersCopy.country_of_origin}
 									onChange={handleChange}>
 									<option value="Choose" disabled>
 										Ver países
@@ -121,7 +135,7 @@ const EditAnswers = () => {
 						return (
 							<label htmlFor={item.name} key={index} className="flex justify-center">
 								{item.label}
-								<input type={item.type} name={item.name} required={item.required} onChange={handleChange} className="ml-4 w-4 hover:cursor-pointer"/>
+								<input type={item.type} name={item.name} required={item.required} defaultChecked={userAnswersCopy.terms_and_conditions} onChange={handleChange} className="ml-4 w-4 hover:cursor-pointer"/>
 							</label>
 						);
 					} else {
