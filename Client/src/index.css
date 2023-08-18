@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes movein {
+  from {
+    top: -200px;
+  }
+  to {
+    top: 11px;
+  }
+}
+
+@keyframes moveout {
+  from {
+    top: 11px;
+  }
+  to {
+    top: -200px;
+  }
+}
+
+.expandable {
+  animation: movein 0.5s ease forwards, moveout 0.5s 10s ease forwards;
+}
