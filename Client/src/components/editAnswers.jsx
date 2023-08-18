@@ -36,6 +36,7 @@ const EditAnswers = () => {
       console.log(response);
       navigate(`/answers/${id}`);
 		} catch (error) {
+			if(error.message === "Network Error") return setErrorCatched("Connection lost.")
 			return error;
 		}
 	};
