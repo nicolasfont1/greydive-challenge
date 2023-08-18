@@ -36,7 +36,8 @@ const Login = () => {
 			}
 			navigate(`/answers/${response}`)
 		} catch (error) {
-			return console.log(error)
+			if(error.message === "Network Error") return setErrorCatched("Connection lost.")
+			return console.log(error.message)
 		}
 	};
 
