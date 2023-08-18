@@ -36,6 +36,9 @@ const EditAnswers = () => {
 		event.preventDefault();
 		setAlert(null);
 		try {
+			if (userAnswers.terms_and_conditions === false) {
+				return setAlert("Can't save without accept terms.")
+			}
       const response = await dispatch(editAnswers(userAnswers));
       setAlert(response);
 			setTimeout(() => {
@@ -135,13 +138,14 @@ const EditAnswers = () => {
 						return (
 							<label htmlFor={item.name} key={index} className="flex justify-center">
 								{item.label}
-								<input type={item.type} name={item.name} required={item.required} defaultChecked={userAnswersCopy.terms_and_conditions} onChange={handleChange} className="ml-4 w-4 hover:cursor-pointer"/>
+								<input type={item.type} name={item.name} required={item.required} defaultChecked={true} onChange={handleChange} className="ml-4 w-4 hover:cursor-pointer"/>
 							</label>
 						);
 					} else {
 						return (
-							<div className="flex justify-center" key={index}>
-								<button type={item.type} onClick={handleSubmit} className="w-fit hover:cursor-pointer hover:scale-110 hover:underline transition-all">
+							<div className="flex justify-around" key={index}>
+								<a href={`/answers/${id}`} className="text-white/60 hover:cursor-pointer hover:scale-110 hover:underline transition-all hover:text-white/90">Volver</a>
+								<button type={item.type} onClick={handleSubmit} className="hover:cursor-pointer hover:scale-110 hover:underline transition-all">
 									{item.label}
 								</button>
 							</div>
