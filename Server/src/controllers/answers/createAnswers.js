@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
 
   try {
     if (!full_name || !email || !birth_date || !country_of_origin || !terms_and_conditions || !userId) {
-      throw Error("Data missing.")
+      return res.status(200).json("Data missing.")
     }
 
     const userMatch = await User.findByPk(userId)
