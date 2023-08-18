@@ -3,23 +3,31 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getUser, getAnswers } from "../redux/actions";
+import { Alert } from "../components/alert";
 
 const Login = () => {
 	const [userData, setUserData] = useState({
 		name: "",
 	});
 
+	const [errorCatched, setErrorCatched] = useState(null);
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		setErrorCatched(null);
 		try {
+			if (!userData.name) {
+				return setErrorCatched("Better try writing something!")
+			}
+
 			const response = await dispatch(getUser(userData.name))
 
 			if (response === "Non registered name.") {
 				setUserData({name: ""})
-				return console.log("Usuario no registrado")
+				return setErrorCatched(response)
 			}
 
 			const answers = await dispatch(getAnswers(response))
@@ -28,7 +36,7 @@ const Login = () => {
 			}
 			navigate(`/answers/${response}`)
 		} catch (error) {
-			console.log(error)
+			return console.log(error)
 		}
 	};
 
@@ -41,6 +49,7 @@ const Login = () => {
 
 	return (
 		<main className="h-screen w-screen bg-slate-800 flex flex-col justify-center items-center">
+			{errorCatched && <Alert alertTitle={"Error!"} alertBody={errorCatched} setErrorCatched={setErrorCatched} />}
 			<section className="h-[60%] flex flex-col justify-center text-center">
 				<h1 className="text-4xl text-white/90 font-serif">THE</h1>
 				<h1 className="text-9xl text-white/90 font-serif font-extrabold">GREYDIVE</h1>
